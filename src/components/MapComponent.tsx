@@ -47,7 +47,6 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   const routesLayerGroupRef = useRef<L.LayerGroup | null>(null);
   const gpsMarkerRef = useRef<L.CircleMarker | null>(null);
   const gpsHaloRef = useRef<L.Circle | null>(null);
-  const baseTileLayerRef = useRef<L.TileLayer | null>(null);
 
   const [showLayerMenu, setShowLayerMenu] = useState(false);
   const isLight = theme === 'light';
@@ -62,32 +61,13 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       zoomControl: false
     });
 
-    // Base Tile Layer
-    const getTileUrl = (style: TileLayerType) => {
-      if (style === 'dark') {
-        return 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-      } else if (style === 'satellite') {
-        return 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-      }
-      return 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    };
+    // Base Tile Layer (OpenStreetMap raster; sin API key ni marca de agua)
+    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-    const getAttribution = (style: TileLayerType) => {
-      if (style === 'dark') {
-        return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
-      } else if (style === 'satellite') {
-        return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
-      }
-      return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
-    };
-
-    const tileLayer = L.tileLayer(getTileUrl(tileStyle), {
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      subdomains: 'abcd',
-      attribution: getAttribution(tileStyle)
+      attribution
     }).addTo(map);
-
-    baseTileLayerRef.current = tileLayer;
 
     // Layer groups for markers, routes & heat overlays
     const routesGroup = L.layerGroup().addTo(map);
@@ -112,18 +92,13 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     };
   }, []);
 
-  // Update base tile when tileStyle changes
+  // Update base tile when tileStyle changes (todas las vistas usan OSM;
+  // el modo "dark" se consigue invirtiendo los colores con un filtro CSS,
+  // evitando así proveedores de pago que añaden marca de agua).
   useEffect(() => {
-    if (!mapInstanceRef.current || !baseTileLayerRef.current) return;
-
-    let url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-    if (tileStyle === 'satellite') {
-      url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-    } else if (tileStyle === 'standard') {
-      url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    }
-
-    baseTileLayerRef.current.setUrl(url);
+    const mapEl = mapContainerRef.current;
+    if (!mapEl) return;
+    mapEl.classList.toggle('nexo-map-dark', tileStyle === 'dark');
   }, [tileStyle]);
 
   // Handle external focusCoords (e.g., from Weather Corridor selection)
@@ -512,15 +487,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
                 onClick={() => { onChangeTileStyle('dark'); setShowLayerMenu(false); }}
                 className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between cursor-pointer ${tileStyle === 'dark' ? 'bg-blue-600/20 text-blue-500 font-bold' : isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/5'}`}
               >
-                <span>Oscuro Táctico</span>
+                <span>Oscuro</span>
                 {tileStyle === 'dark' && <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>}
-              </button>
-              <button
-                onClick={() => { onChangeTileStyle('satellite'); setShowLayerMenu(false); }}
-                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between cursor-pointer ${tileStyle === 'satellite' ? 'bg-blue-600/20 text-blue-500 font-bold' : isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/5'}`}
-              >
-                <span>Voyager</span>
-                {tileStyle === 'satellite' && <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>}
               </button>
               <button
                 onClick={() => { onChangeTileStyle('standard'); setShowLayerMenu(false); }}

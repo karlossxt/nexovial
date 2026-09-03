@@ -133,3 +133,8 @@ select {
 
 
 
+
+/* Modo oscuro del mapa: se simula invirtiendo los tiles de OpenStreetMap (sin API key ni marca de agua) */
+.nexo-map-dark .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
