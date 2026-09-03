@@ -13,11 +13,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "esModuleInterop": true,
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
+    "types": ["node"],
     "paths": {
       "@/*": [
         "./*"
@@ -26,5 +28,5 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "api"]
 }
