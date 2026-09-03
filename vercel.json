@@ -1,5 +1,5 @@
 {
-  "framework": "vite",
+  "version": 2,
   "functions": {
     "api/index.ts": {
       "maxDuration": 60
