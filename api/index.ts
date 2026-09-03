@@ -714,7 +714,7 @@ const distPath = path.join(process.cwd(), 'dist');
 
 function applyStaticServing() {
   app.use(express.static(distPath));
-  app.get(/(.*)/, (req, res) => {
+  app.get(/(.*)/, (_req, res) => {
     const indexHtml = path.join(distPath, 'index.html');
     if (fs.existsSync(indexHtml)) {
       return res.sendFile(indexHtml);
