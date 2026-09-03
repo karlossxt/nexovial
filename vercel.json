@@ -6,6 +6,7 @@
     }
   },
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/((?!api/|assets/|icon-|apple-touch|sw\\.js|manifest\\.webmanifest).*)", "destination": "/index.html" }
   ]
 }
