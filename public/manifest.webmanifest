@@ -1,0 +1,24 @@
+{
+  "name": "NEXO — Monitoreo Vial en Tiempo Real",
+  "short_name": "NEXO",
+  "description": "Monitoreo vial y seguridad carretera en tiempo real para México. Alertas, rutas seguras, IA y notificaciones push.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071016",
+  "theme_color": "#071016",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

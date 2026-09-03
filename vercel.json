@@ -1,0 +1,11 @@
+{
+  "framework": "vite",
+  "functions": {
+    "api/index.ts": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    { "source": "/((?!api/|assets/|icon-|apple-touch|sw\\.js|manifest\\.webmanifest).*)", "destination": "/index.html" }
+  ]
+}

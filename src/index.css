@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #04070c;
+  --bg-2: #05070a;
+  --panel: #070b12;
+  --card: #0f151f;
+  --card-2: #151e2c;
+  --muted: #64748b;
+  --text: #e6eef6;
+  --accent: #22d3ee;
+  --accent-2: #3b82f6;
+  --danger: #ef4444;
+  --warn: #f97316;
+  --success: #22c55e;
+  --security: #ec4899;
+  --border: rgba(255, 255, 255, 0.06);
+  --radius: 12px;
+  --shadow-panel: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+@theme inline {
+  --color-nexo: var(--accent);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: radial-gradient(1200px 600px at 70% -10%, rgba(34, 211, 238, 0.06), transparent 60%),
+    radial-gradient(900px 500px at 0% 100%, rgba(59, 130, 246, 0.05), transparent 60%),
+    var(--bg);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Refined dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.25), rgba(59, 130, 246, 0.2));
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.45);
+}
+
+/* Pulse animation for new alerts */
+@keyframes pulseBlink {
+  0% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(2.2); opacity: 0.15; }
+  100% { transform: scale(1); opacity: 0.95; }
+}
+
+.pulse-blink {
+  animation: pulseBlink 1.4s ease-in-out infinite;
+}
+
+/* Leaflet dark theme customization */
+.leaflet-container {
+  background-color: #020406 !important;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #070b10 !important;
+  color: #e6eef6 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+  padding: 0 !important;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: #070b10 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.leaflet-control-zoom a {
+  background-color: #070b10 !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-control-zoom a:hover {
+  background-color: #0f151f !important;
+  color: #ffffff !important;
+}
+
+/* Cluster styling */
+.custom-cluster-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 12px;
+  color: #fff;
+  background: radial-gradient(circle at 30% 25%, rgba(34, 211, 238, 0.95), rgba(59, 130, 246, 0.9));
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* Accessible focus ring for interactive elements */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.7);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Smooth, dignified transitions on interactive cards */
+button,
+a,
+select {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+
+
