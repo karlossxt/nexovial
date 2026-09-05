@@ -1,0 +1,10 @@
+{
+  "name": "NEXO Vial",
+  "description": "NEXO: monitoreo vial y seguridad carretera en tiempo real para México con alertas IA, rutas seguras, notificaciones push y asistencia de emergencia.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
