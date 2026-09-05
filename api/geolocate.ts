@@ -5,7 +5,7 @@ import { rateLimitExceeded } from './lib/http';
 
 // POST /api/geolocate
 export default async function handler(req: Request, res: Response) {
-  if (rateLimitExceeded(req, res)) return;
+  if (await rateLimitExceeded(req, res)) return;
 
   try {
     const { text } = req.body || {};
@@ -14,11 +14,11 @@ export default async function handler(req: Request, res: Response) {
     }
 
     const cacheKey = text.trim().toLowerCase();
-    const cached = getCachedGeolocate(cacheKey);
+    const cached = await getCachedGeolocate(cacheKey);
     if (cached) return res.json(cached);
 
     const responder = (payload: Record<string, unknown>) => {
-      cacheGeolocate(cacheKey, payload);
+      void cacheGeolocate(cacheKey, payload);
       return res.json(payload);
     };
 

@@ -5,7 +5,7 @@ import { rateLimitExceeded } from './lib/http';
 
 // POST /api/ai-analyze-alert
 export default async function handler(req: Request, res: Response) {
-  if (rateLimitExceeded(req, res)) return;
+  if (await rateLimitExceeded(req, res)) return;
 
   try {
     const { text } = req.body || {};

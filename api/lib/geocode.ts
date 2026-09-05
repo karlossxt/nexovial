@@ -1,17 +1,43 @@
-// Caché en memoria compartida entre invocaciones de la misma instancia.
-export const geolocateCache = new Map<string, Record<string, unknown>>();
-export const GEO_CACHE_MAX = 200;
+import { Redis } from '@upstash/redis';
+import { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from './env';
 
-export function cacheGeolocate(key: string, payload: Record<string, unknown>): void {
-  geolocateCache.set(key, payload);
-  if (geolocateCache.size > GEO_CACHE_MAX) {
-    const primerClave = geolocateCache.keys().next().value;
-    if (primerClave !== undefined) geolocateCache.delete(primerClave);
+const hasUpstash = Boolean(UPSTASH_REDIS_REST_URL && UPSTASH_REDIS_REST_TOKEN);
+const redis = hasUpstash ? Redis.fromEnv() : null;
+
+const GEO_KEY_PREFIX = 'nexo:geo:';
+const GEO_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 días
+
+// Caché en memoria (solo para cuando no hay Redis configurado).
+const memCache = new Map<string, Record<string, unknown>>();
+const MEM_CACHE_MAX = 200;
+
+export async function cacheGeolocate(key: string, payload: Record<string, unknown>): Promise<void> {
+  if (redis) {
+    try {
+      await redis.set(`${GEO_KEY_PREFIX}${key}`, JSON.stringify(payload), { ex: GEO_TTL_SECONDS });
+      return;
+    } catch {
+      // cae a memoria
+    }
+  }
+  memCache.set(key, payload);
+  if (memCache.size > MEM_CACHE_MAX) {
+    const primerClave = memCache.keys().next().value;
+    if (primerClave !== undefined) memCache.delete(primerClave);
   }
 }
 
-export function getCachedGeolocate(key: string): Record<string, unknown> | undefined {
-  return geolocateCache.get(key);
+export async function getCachedGeolocate(key: string): Promise<Record<string, unknown> | undefined> {
+  if (redis) {
+    try {
+      const raw = await redis.get<string>(`${GEO_KEY_PREFIX}${key}`);
+      if (raw) return JSON.parse(raw) as Record<string, unknown>;
+      return undefined;
+    } catch {
+      // cae a memoria
+    }
+  }
+  return memCache.get(key);
 }
 
 // Fallback coordinate extractor for standard Mexican Highway references

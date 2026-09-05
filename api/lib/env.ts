@@ -11,3 +11,6 @@ export const FEED_MAX_HOURS = Number(process.env.FEED_MAX_HOURS || 24);
 export const RSS_BUNDLE = (process.env.RSS_BUNDLE || '').trim();
 export const API_ACCESS_TOKEN = (process.env.API_ACCESS_TOKEN || '').trim();
 export const AI_RATE_PER_MIN = Number(process.env.AI_RATE_PER_MIN || 60);
+
+export const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL || '';
+export const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || '';

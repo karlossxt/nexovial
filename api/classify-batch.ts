@@ -4,7 +4,7 @@ import { rateLimitExceeded } from './lib/http';
 
 // POST /api/classify-batch (hasta 10 alertas en una sola llamada IA)
 export default async function handler(req: Request, res: Response) {
-  if (rateLimitExceeded(req, res)) return;
+  if (await rateLimitExceeded(req, res)) return;
 
   try {
     const { texts } = req.body || {};
