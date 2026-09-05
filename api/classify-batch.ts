@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { callGroqWithFallback } from './lib/groq';
-import { rateLimitExceeded } from './lib/http';
+import { callGroqWithFallback } from './lib/groq.ts';
+import { rateLimitExceeded } from './lib/http.ts';
 
 // POST /api/classify-batch (hasta 10 alertas en una sola llamada IA)
 export default async function handler(req: Request, res: Response) {

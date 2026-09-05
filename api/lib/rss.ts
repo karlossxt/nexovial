@@ -1,4 +1,4 @@
-import { FEED_MAX_HOURS } from './env';
+import { FEED_MAX_HOURS } from './env.ts';
 
 export function decodificarXml(s: string): string {
   return s

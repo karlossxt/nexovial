@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { callGroqWithFallback } from './lib/groq';
-import { fallbackMexicanGeocode, cacheGeolocate, getCachedGeolocate } from './lib/geocode';
-import { rateLimitExceeded } from './lib/http';
+import { callGroqWithFallback } from './lib/groq.ts';
+import { fallbackMexicanGeocode, cacheGeolocate, getCachedGeolocate } from './lib/geocode.ts';
+import { rateLimitExceeded } from './lib/http.ts';
 
 // POST /api/geolocate
 export default async function handler(req: Request, res: Response) {

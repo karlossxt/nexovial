@@ -1,5 +1,5 @@
-import { GROQ_API_KEY, GROQ_BASE, GROQ_MODELS } from './env';
-import { delay } from './http';
+import { GROQ_API_KEY, GROQ_BASE, GROQ_MODELS } from './env.ts';
+import { delay } from './http.ts';
 
 // Llamada resiliente a Groq con fallback multi-modelo y reintentos.
 export async function callGroqWithFallback(

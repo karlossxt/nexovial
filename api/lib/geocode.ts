@@ -1,5 +1,5 @@
 import { Redis } from '@upstash/redis';
-import { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from './env';
+import { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from './env.ts';
 
 const hasUpstash = Boolean(UPSTASH_REDIS_REST_URL && UPSTASH_REDIS_REST_TOKEN);
 const redis = hasUpstash ? Redis.fromEnv() : null;

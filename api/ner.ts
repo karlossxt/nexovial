@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { fallbackMexicanGeocode } from './lib/geocode';
+import { fallbackMexicanGeocode } from './lib/geocode.ts';
 
 // POST /api/ner
 export default async function handler(req: Request, res: Response) {

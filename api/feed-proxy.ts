@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { RSS_BUNDLE } from './lib/env';
-import { esEntradaReciente, parsearRssXml } from './lib/rss';
-import { isSafePublicUrl } from './lib/security';
+import { RSS_BUNDLE } from './lib/env.ts';
+import { esEntradaReciente, parsearRssXml } from './lib/rss.ts';
+import { isSafePublicUrl } from './lib/security.ts';
 
 // GET /api/feed-proxy
 // Único origen: RSS_BUNDLE o ?url= ; nunca simula eventos.

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { callGroqWithFallback } from './lib/groq';
-import { generateFallbackAlertAnalysis } from './lib/geocode';
-import { rateLimitExceeded } from './lib/http';
+import { callGroqWithFallback } from './lib/groq.ts';
+import { generateFallbackAlertAnalysis } from './lib/geocode.ts';
+import { rateLimitExceeded } from './lib/http.ts';
 
 // POST /api/ai-analyze-alert
 export default async function handler(req: Request, res: Response) {

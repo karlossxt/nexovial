@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import { AI_RATE_PER_MIN, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from './env';
+import { AI_RATE_PER_MIN, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from './env.ts';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
