@@ -67,7 +67,7 @@ export function clientIdentifier(req: Request): string {
 export async function rateLimitExceeded(req: Request, res: Response): Promise<boolean> {
   const { success, retryAfter } = await aiLimiter.limit(clientIdentifier(req));
   if (!success) {
-    res.set('Retry-After', String(retryAfter ?? 30));
+    res.setHeader('Retry-After', String(retryAfter ?? 30));
     res.status(429).json({ error: 'Demasiadas solicitudes; intenta en un momento.' });
     return true;
   }
